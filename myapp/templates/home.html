@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+
+
+{% block content %}
+
+<style>
+    .card img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        margin: auto;
+
+
+    }
+</style>
+
+
+
+<h1 class="text-center p-3">Islamic Book Collection</h1>
+<hr class="bg-dark">
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="list-group">
+
+                <a href="/" class="list-group-item list-group-item-action" aria-current="true">
+                    All Book
+                </a>
+                {% for cat in mycategory %}
+                <a href="{% url 'showcat' cat.id %}"
+                    class="list-group-item {{category}}  list-group-item-action">{{cat.category}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-10">
+
+            <div class="row text-center">
+                {% for alldata in data %}
+
+                <div class="card  mr-2 p-4 mb-4" style="width: 18rem;">
+                    <img src="{{alldata.coverpage_photo.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{alldata.title}}</h5>
+                        <p class="card-text">{{alldata.description}}</p>
+                        <a href="{{alldata.document.url}}" class="btn btn-danger" download>Download</a>
+                        <a href="{% url 'pdf_view' alldata.id %}" class="btn btn-info">View</a>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
